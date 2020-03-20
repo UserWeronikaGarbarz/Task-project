@@ -26,7 +26,7 @@ public class TaskController {
     public void deleteTask(Long taskId) {
     }
 
-    @RequestMapping(method = RequestMethod.PATCH, value = "updateTask")
+    @RequestMapping(method = RequestMethod.PUT, value = "updateTask")
     public TaskDto updateTask(TaskDto taskDto) {
         return new TaskDto(1L, "edited title", "test content");
     }
