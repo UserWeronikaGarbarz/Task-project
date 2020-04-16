@@ -1,17 +1,12 @@
 package com.crud.tasks.mapper;
 
-
-import com.crud.tasks.badges.AttachmentsByType;
 import com.crud.tasks.badges.Badges;
-import com.crud.tasks.badges.Trello;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
 
 
 @Getter
@@ -31,11 +26,5 @@ public class CreatedTrelloCard {
     private String shortUrl;
 
     @JsonProperty("badges")
-    Badges badges = new Badges();
-
-    @JsonProperty("attachmentsByType")
-    AttachmentsByType attachmentsByType;
-
-    @JsonProperty("trello")
-    Trello trello;
+    Badges badges;
 }
