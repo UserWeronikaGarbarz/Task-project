@@ -19,7 +19,6 @@ public class CoreConfiguration implements WebMvcConfigurer {
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
-
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
