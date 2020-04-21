@@ -1,5 +1,6 @@
 package com.crud.tasks.trello.client;
 
+import com.crud.tasks.badges.Badges;
 import com.crud.tasks.domain.TrelloBoardDto;
 import com.crud.tasks.domain.TrelloCardDto;
 import com.crud.tasks.mapper.CreatedTrelloCardDto;
@@ -45,7 +46,7 @@ public class TrelloClientTest {
         TrelloBoardDto[] trelloBoards = new TrelloBoardDto[1];
         trelloBoards[0] = new TrelloBoardDto("test_board", "test_id", new ArrayList<>());
 
-        URI uri = new URI("http://test.com/members/weronikagarbarz/boards?key=test&token=test&fields=name,id&lists=all");
+        URI uri = new URI("http://test.com/members/weronikagarbarz/boards?key=test&token=test&fields=name,id,badges&lists=all");
 
         when(restTemplate.getForObject(uri, TrelloBoardDto[].class)).thenReturn(trelloBoards);
         //When
@@ -72,7 +73,8 @@ public class TrelloClientTest {
         CreatedTrelloCardDto createdTrelloCardDto = new CreatedTrelloCardDto(
                 "1",
                 "Test task",
-                "http://test.com"
+                "http://test.com",
+                new Badges()
         );
         when(restTemplate.postForObject(uri, null, CreatedTrelloCardDto.class)).thenReturn(createdTrelloCardDto);
         //When
@@ -86,7 +88,7 @@ public class TrelloClientTest {
     @Test
     public void shouldReturnEmptyList() throws URISyntaxException {
         //Given
-        URI uri = new URI("http://test.com/members/weronikagarbarz/boards?key=test&token=test&fields=name,id&lists=all");
+        URI uri = new URI("http://test.com/members/weronikagarbarz/boards?key=test&token=test&fields=name,id,badges&lists=all");
         when(restTemplate.getForObject(uri, TrelloBoardDto[].class)).thenReturn(null);
         //When
         List<TrelloBoardDto> fetchedTrelloBoards = trelloClient.getTrelloBoards();

@@ -10,7 +10,6 @@ import lombok.ToString;
 @Getter
 @ToString
 public class TrelloCardDto {
-
     private String name;
     private String description;
     private String pos;
