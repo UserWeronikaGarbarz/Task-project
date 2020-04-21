@@ -4,45 +4,40 @@ import com.crud.tasks.domain.Task;
 import com.crud.tasks.domain.TaskDto;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RunWith(MockitoJUnitRunner.class)
 public class TaskMapperTestSuite {
-
-    @InjectMocks
-    TaskMapper taskMapper;
 
     @Test
     public void shouldMapToTask() {
         //Given
+        TaskMapper taskMapper = new TaskMapper();
         Task task = new Task(1L, "test", "test");
         TaskDto taskDto = new TaskDto(1L, "test", "test");
         //When
         Task mappedTask = taskMapper.mapToTask(taskDto);
         //Then
-        Assert.assertTrue(new ReflectionEquals(task).matches(mappedTask));
+        Assert.assertEquals(task.getTitle(), mappedTask.getTitle());
     }
 
     @Test
     public void shouldMapToTaskDto() {
         //Given
+        TaskMapper taskMapper = new TaskMapper();
         Task task = new Task(1L, "test", "test");
         TaskDto taskDto = new TaskDto(1L, "test", "test");
         //When
         TaskDto mappedTask = taskMapper.mapToTaskDto(task);
         //Then
-        Assert.assertTrue(new ReflectionEquals(taskDto).matches(mappedTask));
+        Assert.assertEquals(taskDto.getTitle(), mappedTask.getTitle());
     }
 
     @Test
     public void mapToTaskDtoList() {
         //Given
+        TaskMapper taskMapper = new TaskMapper();
         Task task = new Task(1L, "test", "test");
         TaskDto taskDto = new TaskDto(1L, "test", "test");
         List<Task> taskList = new ArrayList<>();
@@ -52,6 +47,6 @@ public class TaskMapperTestSuite {
         //When
         List<TaskDto> mappedTasks = taskMapper.mapToTaskDtoList(taskList);
         //Then
-        Assert.assertTrue(new ReflectionEquals(taskDtoList).matches(mappedTasks));
+        Assert.assertEquals(taskList.get(0).getTitle(), mappedTasks.get(0).getTitle());
     }
 }

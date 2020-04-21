@@ -37,11 +37,4 @@ public class SimpleEmailServiceTest {
         //Then
         verify(javaMailSender, times(1)).send(mailMessage);
     }
-
-    @Test
-    public void shouldSendTaskMessage() {
-        //Given
-        //When
-        //Then
-    }
 }
