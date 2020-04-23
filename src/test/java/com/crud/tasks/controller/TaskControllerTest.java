@@ -7,8 +7,6 @@ import com.crud.tasks.service.DbService;
 import com.google.gson.Gson;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -33,9 +31,6 @@ public class TaskControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private TaskController taskController;
-
     @MockBean
     private DbService dbService;
 
@@ -45,11 +40,10 @@ public class TaskControllerTest {
     @Test //1
     public void shouldGetAllTasks() throws Exception {
         //Given
-        List<Task> taskList = new ArrayList<>();
-        taskList.add(new Task(1L, "test", "test"));
         List<TaskDto> taskDtoList = new ArrayList<>();
         taskDtoList.add(new TaskDto(1L, "test", "test"));
-        when(taskController.getTasks()).thenReturn(taskDtoList);
+
+        when(taskMapper.mapToTaskDtoList(dbService.getAllTasks())).thenReturn(taskDtoList);
         //When & Then
         mockMvc.perform(get("/v1/task/getTasks").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -63,8 +57,8 @@ public class TaskControllerTest {
     public void shouldGetTask() throws Exception {
         //Given
         TaskDto taskDto = new TaskDto(1L, "test", "test");
-        when(taskController.getTask(1L)).thenReturn(taskDto);
-        Mockito.doThrow(new TaskNotFoundException()).when(null);
+        when(taskMapper.mapToTaskDto(dbService.getTask(1L).orElseThrow(TaskNotFoundException::new)))
+                .thenReturn(taskDto);
         //When & Then
         mockMvc.perform(get("/v1/task/getTask/?taskId=1").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -84,9 +78,10 @@ public class TaskControllerTest {
     public void shouldUpdateTask() throws Exception {
         //Given
         TaskDto taskDto = new TaskDto(1L, "test", "test");
+        Task task = new Task(1L, "test", "test");
         Gson gson = new Gson();
         String jsonContent = gson.toJson(taskDto);
-        when(taskController.updateTask(ArgumentMatchers.any(TaskDto.class))).thenReturn(taskDto);
+        when(taskMapper.mapToTaskDto(dbService.saveTask(task))).thenReturn(taskDto);
         //When & Then
         mockMvc.perform(put("/v1/task/updateTask")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -102,9 +97,10 @@ public class TaskControllerTest {
     public void shouldCreateTask() throws Exception {
         //Given
         Task task = new Task(1L, "test", "test");
+        TaskDto taskDto = new TaskDto(1L, "test", "test");
         Gson gson = new Gson();
         String jsonContent = gson.toJson(task);
-        when(taskController.createTask(ArgumentMatchers.any(TaskDto.class))).thenReturn(task);
+        when(dbService.saveTask(taskMapper.mapToTask(taskDto))).thenReturn(task);
         //When & Then
         mockMvc.perform(post("/v1/task/createTask")
                 .contentType(MediaType.APPLICATION_JSON)
