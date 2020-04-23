@@ -70,7 +70,8 @@ public class TaskControllerTest {
     @Test //3
     public void shouldDeleteTask() throws Exception {
         //When & Then
-        mockMvc.perform(delete("/v1/task/deleteTask/?taskId=1"))
+        mockMvc.perform(delete("/v1/task/deleteTask/?taskId=1")
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
