@@ -45,8 +45,6 @@ public class TaskMapperTestSuite {
         TaskDto taskDto = new TaskDto(1L, "test", "test");
         List<Task> taskList = new ArrayList<>();
         taskList.add(task);
-        List<TaskDto> taskDtoList = new ArrayList<>();
-        taskDtoList.add(taskDto);
         //When
         List<TaskDto> mappedTasks = taskMapper.mapToTaskDtoList(taskList);
         //Then
