@@ -60,20 +60,20 @@ public class TaskControllerTest {
         when(taskMapper.mapToTaskDto(dbService.getTask(1L).orElseThrow(TaskNotFoundException::new)))
                 .thenReturn(taskDto);
         //When & Then
-        mockMvc.perform(get("/v1/tasks/?taskId=1").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/v1/tasks/1").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(1)))
                 .andExpect(jsonPath("$.title", is("test")))
                 .andExpect(jsonPath("$.content", is("test")));
     }
 
-//    @Test //3
-//    public void shouldDeleteTask() throws Exception {
-//        //When & Then
-//        mockMvc.perform(delete("/v1/tasks/?taskId=1")
-//                .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk());
-//    }
+    @Test //3
+    public void shouldDeleteTask() throws Exception {
+        //When & Then
+        mockMvc.perform(delete("/v1/tasks/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 
     @Test //4
     public void shouldUpdateTask() throws Exception {
