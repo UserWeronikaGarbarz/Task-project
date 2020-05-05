@@ -6,17 +6,16 @@
 //import org.mockito.InjectMocks;
 //import org.mockito.Mock;
 //
-//import static org.mockito.Mockito.times;
-//import static org.mockito.Mockito.verify;
-//
 //import org.mockito.junit.MockitoJUnitRunner;
-//import org.springframework.mail.SimpleMailMessage;
 //import org.springframework.mail.javamail.JavaMailSender;
 //import org.springframework.mail.javamail.MimeMessageHelper;
-//import org.springframework.mail.javamail.MimeMessagePreparator;
+//import org.thymeleaf.TemplateEngine;
+//import org.thymeleaf.context.Context;
 //
 //import javax.mail.MessagingException;
 //import javax.mail.internet.MimeMessage;
+//
+//import static org.mockito.Mockito.*;
 //
 //@RunWith(MockitoJUnitRunner.class)
 //public class SimpleEmailServiceTest {
@@ -34,6 +33,10 @@
 //    public void shouldSendEmail() throws MessagingException {
 //        //Given
 //        Mail mail = new Mail("Test", "Test", "Test", null);
+//        Context context = new Context();
+//        context.setVariable("message", "message");
+//
+//        when(mailCreatorService.buildTrelloCardEmail(mail.getMessage())).thenReturn("mail.getMessage()");
 //        MimeMessage mailMessage = javaMailSender.createMimeMessage();
 //        MimeMessageHelper helper = new MimeMessageHelper(mailMessage);
 //        helper.setTo(mail.getReceiverEmail());
