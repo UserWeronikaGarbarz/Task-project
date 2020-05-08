@@ -10,8 +10,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 
-import javax.mail.MessagingException;
-
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -33,3 +31,4 @@ public class SimpleEmailServiceTest {
         verify(javaMailSender, times(1)).send(any(MimeMessagePreparator.class));
     }
 }
+
