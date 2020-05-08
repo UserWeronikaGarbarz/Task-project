@@ -24,7 +24,7 @@ public class SimpleEmailServiceTest {
     private JavaMailSender javaMailSender;
 
     @Test
-    public void shouldSendEmail() throws MessagingException {
+    public void shouldSendEmail() {
         //Given
         Mail mail = new Mail("Test", "Test", "Test", null);
         //When
